@@ -21,15 +21,19 @@ export class SecretManager {
         return `projects/${this.GCLOUD_PROJECT}/secrets/${secretName}/versions/latest`;
       };
 
-      const [secret] = await this.client.accessSecretVersion({
-        name: buildSecretName(key),
-      });
+      try {
+        const [secret] = await this.client.accessSecretVersion({
+          name: buildSecretName(key),
+        });
 
-      const value = secret.payload?.data?.toString();
-      if (!value) {
-        throw new Error(`Unable to access ${key} via Secret Manager.`);
+        const value = secret.payload?.data?.toString();
+        if (!value) {
+          throw new Error(`Unable to access ${key} via Secret Manager.`);
+        }
+        return value;
+      } catch (error) {
+        throw new Error(`'${this.GCLOUD_PROJECT}' cannot be accessed.`);
       }
-      return value;
     } else {
       const value = process.env[key];
       if (!value) {
