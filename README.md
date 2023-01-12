@@ -19,3 +19,17 @@ gcloud auth application-default login
 ```bash
 pnpm src/index.ts
 ```
+
+## Expected Output
+
+```bash
+# GCLOUD_PROJECT defined
+tsx src/index.ts                                                                
+{ priv: undefined, pub: undefined }
+{ priv: '(Priv) Hello from SM', pub: '(Pub) Hello from SM' }
+
+# GCLOUD_PROJECT undefined
+tsx src/index.ts
+{ priv: undefined, pub: undefined }
+{ priv: 'PRIVATE FROM LOCALHOST', pub: 'PUBLIC FROM LOCALHOST' }
+```
