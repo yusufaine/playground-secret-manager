@@ -17,7 +17,7 @@ gcloud auth application-default login
 ## Running
 
 ```bash
-pnpm src/index.ts
+tsx src/index.ts
 ```
 
 ## Expected Output
